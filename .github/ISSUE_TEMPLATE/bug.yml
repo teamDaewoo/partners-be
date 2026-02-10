@@ -1,0 +1,71 @@
+name: "🐞 Bug"
+description: "버그 발생 시 작성해 주세요"
+title: "[Fix] "
+labels: ["bug"]
+body:
+  - type: textarea
+    id: bug-description
+    attributes:
+      label: 🐞 어떤 버그인가요?
+      description: 어떤 버그인지 간결하게 설명해주세요.
+      placeholder: 로그인 시 토큰이 저장되지 않습니다.
+    validations:
+      required: true
+
+  - type: textarea
+    id: reproduce
+    attributes:
+      label: 📝 어떤 상황에서 발생한 버그인가요?
+      description: Given-When-Then 형식으로 서술해주세요.
+      placeholder: |
+        - **Given**: (상황 설명)
+        - **When**: (행동 설명)
+        - **Then**: (문제 발생 설명)
+      value: |
+        - **Given**: 
+        - **When**: 
+        - **Then**: 
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: 🎯 예상 결과
+      description: 예상했던 정상적인 결과가 어떤 것이었는지 설명해주세요.
+      placeholder: 로그인 성공 시 토큰이 localStorage에 저장되어야 합니다.
+    validations:
+      required: true
+
+  - type: textarea
+    id: error-log
+    attributes:
+      label: 📋 에러 로그 (선택)
+      description: 에러 로그가 있다면 붙여넣어 주세요.
+      placeholder: |
+        에러 메시지를 여기에 붙여넣기
+      render: shell
+    validations:
+      required: false
+
+  - type: textarea
+    id: screenshot
+    attributes:
+      label: 📸 스크린샷 (선택)
+      description: 스크린샷이 있다면 첨부해주세요.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: 🚨 심각도
+      description: 버그의 심각도를 선택해주세요.
+      options:
+        - Critical (서비스 중단)
+        - High (주요 기능 불가)
+        - Medium (일부 기능 문제)
+        - Low (사소한 문제)
+      default: 2
+    validations:
+      required: true

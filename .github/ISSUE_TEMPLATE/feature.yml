@@ -1,0 +1,58 @@
+name: "✨ Feature"
+description: "새로운 기능 추가"
+title: "[Feat] "
+labels: ["feature"]
+body:
+  - type: textarea
+    id: description
+    attributes:
+      label: 📝 설명
+      description: 새로운 기능에 대해 설명을 작성해 주세요.
+      placeholder: 자세히 적을수록 좋습니다!
+    validations:
+      required: true
+
+  - type: textarea
+    id: why
+    attributes:
+      label: 💡 작업할 내용
+      description: 왜 이 기능이 필요한지, 어떤 문제를 해결하는지 작성해주세요.
+      placeholder: 이 기능은 ~한 문제를 해결합니다.
+    validations:
+      required: true
+
+  - type: textarea
+    id: tasks
+    attributes:
+      label: ✅ 작업 상세 내용
+      description: 구현할 내용을 체크리스트로 작성해주세요.
+      placeholder: |
+        - [ ] TODO 1
+        - [ ] TODO 2
+        - [ ] TODO 3
+      value: |
+        - [ ] 
+    validations:
+      required: true
+
+  - type: textarea
+    id: reference
+    attributes:
+      label: 📎 참고 자료
+      description: 참고 자료가 있다면 작성해 주세요.
+      placeholder: API 문서, 디자인 시안 등
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: 🎯 우선순위
+      description: 이 작업의 우선순위를 선택해주세요.
+      options:
+        - 상 (긴급)
+        - 중 (보통)
+        - 하 (낮음)
+      default: 1
+    validations:
+      required: true
