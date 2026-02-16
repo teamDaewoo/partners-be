@@ -26,6 +26,40 @@ Dooring 서비스를 위한 BFF 서버입니다.
 ### 요구사항
 - Java 21 이상
 - Gradle 8.11.1 이상 (Gradle Wrapper 포함)
+- Docker (PostgreSQL 실행용)
+
+### 데이터베이스 설정
+
+로컬 개발 환경에서 PostgreSQL을 Docker로 실행하는걸 권장합니다:
+
+```bash
+# PostgreSQL 컨테이너 실행
+docker run -d \
+  --name dooring-postgres \
+  -e POSTGRES_USER=postgres \
+  -e POSTGRES_PASSWORD=postgres \
+  -e POSTGRES_DB=dooring \
+  -e POSTGRES_HOST_AUTH_METHOD=md5 \
+  -p 5432:5432 \
+  postgres:15-alpine
+```
+
+DDL 초기화:
+- `src/main/resources/db/init.sql` 파일이 애플리케이션 시작 시 자동 실행됩니다
+- 테이블이 이미 존재하면 오류가 발생할 수 있으니, 처음 실행 시에만 사용하세요
+
+컨테이너 관리:
+
+```bash
+# 컨테이너 중지
+docker stop dooring-postgres
+
+# 컨테이너 시작
+docker start dooring-postgres
+
+# 컨테이너 삭제 (데이터도 함께 삭제됨)
+docker stop dooring-postgres && docker rm dooring-postgres
+```
 
 ### 빌드 및 실행
 
@@ -33,7 +67,7 @@ Dooring 서비스를 위한 BFF 서버입니다.
 # 빌드
 ./gradlew clean build
 
-# 실행
+# 실행 (기본 local 프로필)
 ./gradlew bootRun
 ```
 
