@@ -39,5 +39,8 @@ out/
 ### macOS ###
 .DS_Store
 
+### Environment Variables ###
+.env
+
 ### Claude Code ###
 .claude/
