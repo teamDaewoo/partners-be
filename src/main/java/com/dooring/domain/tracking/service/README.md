@@ -99,7 +99,7 @@ GET /api/creator/links?creatorId={creatorId}
       "productName": "나이키 에어맥스 270",
       "shortCode": "aB3kX9Zw",
       "shortUrl": "http://localhost:8080/r/aB3kX9Zw",
-      "campaign": { ... },
+      "campaign": { '...' },
       "createdAt": "2024-02-20T10:00:00"
     }
   ]
