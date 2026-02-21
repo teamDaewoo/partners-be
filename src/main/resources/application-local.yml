@@ -14,6 +14,9 @@ spring:
         format_sql: true
         highlight_sql: true
 
+dooring:
+  base-url: http://localhost:8080
+
 logging:
   level:
     org.hibernate.SQL: DEBUG
