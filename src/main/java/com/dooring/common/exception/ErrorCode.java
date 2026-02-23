@@ -9,6 +9,8 @@ public enum ErrorCode {
 
     // 공통
     INVALID_INPUT_VALUE(400, "잘못된 입력값입니다"),
+    UNAUTHORIZED(401, "인증이 필요합니다"),
+    FORBIDDEN(403, "접근 권한이 없습니다"),
 
     // Auth
     REFRESH_TOKEN_NOT_FOUND(401, "만료되었거나 로그아웃된 세션입니다"),
