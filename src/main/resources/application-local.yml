@@ -14,8 +14,17 @@ spring:
         format_sql: true
         highlight_sql: true
 
+  data:
+    redis:
+      host: localhost
+      port: 6379
+
 dooring:
   base-url: http://localhost:8080
+
+# JWT secret (로컬 개발용 — 운영에서는 반드시 환경변수로 교체)
+jwt:
+  secret: ZG9vcmluZ1BhcnRuZXJzU2VjcmV0S2V5Rm9ySndrVG9rZW5BdXRoZW50aWNhdGlvbjIwMjY=
 
 logging:
   level:
