@@ -86,10 +86,14 @@ public class SellerAuthService {
 
     @Transactional
     public LoginResult refresh(String refreshToken) {
+        if (refreshToken == null || refreshToken.isBlank()) {
+            throw new BusinessException(ErrorCode.REFRESH_TOKEN_NOT_FOUND);
+        }
+
         Claims claims;
         try {
             claims = jwtTokenProvider.parseToken(refreshToken);
-        } catch (JwtException e) {
+        } catch (JwtException | IllegalArgumentException e) {
             throw new BusinessException(ErrorCode.REFRESH_TOKEN_NOT_FOUND);
         }
 
