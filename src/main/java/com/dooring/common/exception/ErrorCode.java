@@ -19,6 +19,10 @@ public enum ErrorCode {
     // Identity
     CREATOR_NOT_FOUND(404, "크리에이터를 찾을 수 없습니다"),
     SELLER_NOT_FOUND(404, "셀러를 찾을 수 없습니다"),
+    DUPLICATE_EMAIL(409, "이미 사용 중인 이메일입니다"),
+    DUPLICATE_NICKNAME(409, "이미 사용 중인 닉네임입니다"),
+    INVALID_PASSWORD(401, "이메일 또는 비밀번호가 올바르지 않습니다"),
+    ACCOUNT_SUSPENDED(403, "정지된 계정입니다"),
 
     // Catalog
     PRODUCT_NOT_FOUND(404, "상품을 찾을 수 없습니다"),
