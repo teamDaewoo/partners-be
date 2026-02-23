@@ -10,6 +10,10 @@ public enum ErrorCode {
     // 공통
     INVALID_INPUT_VALUE(400, "잘못된 입력값입니다"),
 
+    // Auth
+    REFRESH_TOKEN_NOT_FOUND(401, "만료되었거나 로그아웃된 세션입니다"),
+    REFRESH_TOKEN_STOLEN(401, "비정상적인 토큰 재사용이 감지되었습니다. 다시 로그인해주세요"),
+
     // Identity
     CREATOR_NOT_FOUND(404, "크리에이터를 찾을 수 없습니다"),
     SELLER_NOT_FOUND(404, "셀러를 찾을 수 없습니다"),
