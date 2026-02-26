@@ -31,6 +31,9 @@ public class SellerAuthController {
     @Value("${jwt.refresh-token-expiration}")
     private long refreshTokenExpirationMs;
 
+    @Value("${dooring.cookie.secure}")
+    private boolean cookieSecure;
+
     /** 셀러 회원가입 */
     @PostMapping("/signup")
     @ResponseStatus(HttpStatus.CREATED)
@@ -78,6 +81,7 @@ public class SellerAuthController {
     private ResponseCookie buildRtCookie(String token) {
         return ResponseCookie.from(RT_COOKIE, token)
                 .httpOnly(true)
+                .secure(cookieSecure)
                 .path(RT_PATH)
                 .maxAge(refreshTokenExpirationMs / 1000)
                 .sameSite("Lax")
@@ -87,6 +91,7 @@ public class SellerAuthController {
     private ResponseCookie expireRtCookie() {
         return ResponseCookie.from(RT_COOKIE, "")
                 .httpOnly(true)
+                .secure(cookieSecure)
                 .path(RT_PATH)
                 .maxAge(0)
                 .sameSite("Lax")

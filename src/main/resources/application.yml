@@ -26,6 +26,10 @@ management:
     health:
       show-details: always
 
+dooring:
+  cookie:
+    secure: false  # local 기본값. dev/prod는 profile yml에서 true로 덮어씀
+
 # JWT 설정 (민감한 secret은 각 profile yml에서 주입)
 jwt:
   access-token-expiration: 3600000      # 1시간 (ms)

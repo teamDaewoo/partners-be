@@ -26,6 +26,8 @@ logging:
 dooring:
   cors:
     allowed-origins: ${ALLOWED_ORIGINS}
+  cookie:
+    secure: ${COOKIE_SECURE:true}
 
 # JWT secret (dev 서버 — 반드시 환경변수로 주입)
 jwt:
