@@ -21,6 +21,8 @@ spring:
 
 dooring:
   base-url: http://localhost:8080
+  cors:
+    allowed-origins: http://localhost:3000
 
 # JWT secret (로컬 개발용 — 운영에서는 반드시 환경변수로 교체)
 jwt:
