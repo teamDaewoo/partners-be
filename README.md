@@ -14,7 +14,12 @@ Dooring 서비스를 위한 BFF 서버입니다.
 - **Spring Web**: RESTful API 개발
 - **Spring Validation**: 요청 데이터 검증
 - **Spring Data JPA**: ORM 및 데이터베이스 접근
+- **Spring Security**: 인증/인가
 - **Spring Actuator**: 애플리케이션 모니터링 및 헬스 체크
+- **Spring Data Redis**: RT 저장, 로그인 Rate Limiting
+- **JWT (jjwt 0.12.6)**: Access Token / Refresh Token 발급 및 검증
+- **Flyway**: DB 스키마 버전 관리
+- **PostgreSQL**: 메인 데이터베이스
 - **Lombok**: 보일러플레이트 코드 감소
 
 ### Test
@@ -26,11 +31,11 @@ Dooring 서비스를 위한 BFF 서버입니다.
 ### 요구사항
 - Java 21 이상
 - Gradle 8.11.1 이상 (Gradle Wrapper 포함)
-- Docker (PostgreSQL 실행용)
+- Docker (PostgreSQL, Redis 실행용)
 
 ### 데이터베이스 설정
 
-로컬 개발 환경에서 PostgreSQL을 Docker로 실행하는걸 권장합니다:
+로컬 개발 환경에서 PostgreSQL과 Redis를 Docker로 실행합니다:
 
 ```bash
 # PostgreSQL 컨테이너 실행
@@ -39,26 +44,32 @@ docker run -d \
   -e POSTGRES_USER=postgres \
   -e POSTGRES_PASSWORD=postgres \
   -e POSTGRES_DB=dooring \
-  -e POSTGRES_HOST_AUTH_METHOD=md5 \
   -p 5432:5432 \
   postgres:15-alpine
+
+# Redis 컨테이너 실행
+docker run -d \
+  --name dooring-redis \
+  -p 6379:6379 \
+  redis:7-alpine
 ```
 
-DDL 초기화:
-- `src/main/resources/db/init.sql` 파일이 애플리케이션 시작 시 자동 실행됩니다
-- 테이블이 이미 존재하면 오류가 발생할 수 있으니, 처음 실행 시에만 사용하세요
+스키마 초기화:
+- Flyway가 앱 시작 시 `src/main/resources/db/migration/V1__init.sql`을 자동 실행합니다
+- 이후 스키마 변경은 `V2__`, `V3__` 파일을 추가하면 자동 적용됩니다
 
 컨테이너 관리:
 
 ```bash
 # 컨테이너 중지
-docker stop dooring-postgres
+docker stop dooring-postgres dooring-redis
 
 # 컨테이너 시작
-docker start dooring-postgres
+docker start dooring-postgres dooring-redis
 
-# 컨테이너 삭제 (데이터도 함께 삭제됨)
-docker stop dooring-postgres && docker rm dooring-postgres
+# 컨테이너 및 데이터 완전 초기화
+docker rm dooring-postgres dooring-redis
+docker volume prune -f
 ```
 
 ### 빌드 및 실행
@@ -145,7 +156,30 @@ com.dooring/
 
 기본 서버 포트: `8080`
 
-Actuator 엔드포인트:
+### 프로파일
+
+| 프로파일 | 용도 | DB |
+|---|---|---|
+| `local` (기본값) | 로컬 개발 | Docker PostgreSQL |
+| `prod` | 운영 배포 | RDS |
+
+### 환경변수 (prod 프로파일)
+
+| 변수명 | 설명 |
+|---|---|
+| `DB_HOST` | PostgreSQL 호스트 |
+| `DB_PORT` | PostgreSQL 포트 |
+| `DB_NAME` | 데이터베이스명 |
+| `DB_USERNAME` | DB 사용자명 |
+| `DB_PASSWORD` | DB 비밀번호 |
+| `REDIS_HOST` | Redis 호스트 |
+| `REDIS_PORT` | Redis 포트 |
+| `JWT_SECRET` | JWT 서명 키 (Base64) |
+| `BASE_URL` | 서버 기본 URL (shortUrl 생성용) |
+| `ALLOWED_ORIGINS` | CORS 허용 Origin |
+| `COOKIE_SECURE` | RT 쿠키 Secure 플래그 (기본값: true) |
+
+### Actuator 엔드포인트
 - `/actuator/health` - 헬스 체크
 - `/actuator/info` - 애플리케이션 정보
 - `/actuator/metrics` - 메트릭 정보
