@@ -6,13 +6,7 @@ spring:
     active: local
 
   jpa:
-    hibernate:
-      ddl-auto: validate
-    show-sql: true
-    properties:
-      hibernate:
-        format_sql: true
-        dialect: org.hibernate.dialect.PostgreSQLDialect
+    open-in-view: false
 
 server:
   port: 8080
@@ -26,11 +20,6 @@ management:
     health:
       show-details: always
 
-dooring:
-  cookie:
-    secure: false  # local 기본값. dev/prod는 profile yml에서 true로 덮어씀
-
-# JWT 설정 (민감한 secret은 각 profile yml에서 주입)
 jwt:
   access-token-expiration: 3600000      # 1시간 (ms)
   refresh-token-expiration: 1209600000  # 14일 (ms)

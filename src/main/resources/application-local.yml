@@ -7,12 +7,16 @@ spring:
 
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: none  # Flyway가 DDL 담당
     show-sql: true
     properties:
       hibernate:
         format_sql: true
         highlight_sql: true
+
+  flyway:
+    baseline-on-migrate: true
+    baseline-version: 0
 
   data:
     redis:
@@ -23,6 +27,8 @@ dooring:
   base-url: http://localhost:8080
   cors:
     allowed-origins: http://localhost:3000
+  cookie:
+    secure: false
 
 # JWT secret (로컬 개발용 — 운영에서는 반드시 환경변수로 교체)
 jwt:
