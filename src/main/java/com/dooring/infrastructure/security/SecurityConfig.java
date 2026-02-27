@@ -13,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.CorsConfigurationSource;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
@@ -25,6 +26,7 @@ import java.util.List;
 public class SecurityConfig {
 
     private final JwtTokenProvider jwtTokenProvider;
+    private final StringRedisTemplate stringRedisTemplate;
 
     @Value("${dooring.cors.allowed-origins}")
     private List<String> allowedOrigins;
@@ -55,6 +57,9 @@ public class SecurityConfig {
                                     "{\"success\":false,\"data\":null,\"message\":\"접근 권한이 없습니다\"}");
                         })
                 )
+                .addFilterBefore(
+                        new LoginRateLimitFilter(stringRedisTemplate),
+                        JwtAuthenticationFilter.class)
                 .addFilterBefore(
                         new JwtAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class);
