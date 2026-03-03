@@ -59,7 +59,7 @@ public class SecurityConfig {
                 )
                 .addFilterBefore(
                         new LoginRateLimitFilter(stringRedisTemplate),
-                        JwtAuthenticationFilter.class)
+                        UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(
                         new JwtAuthenticationFilter(jwtTokenProvider),
                         UsernamePasswordAuthenticationFilter.class);
