@@ -30,6 +30,7 @@ public enum ErrorCode {
 
     // Tracking
     LINK_NOT_FOUND(404, "링크를 찾을 수 없습니다"),
+    PRODUCT_URL_NOT_FOUND(404, "상품 URL이 등록되지 않았습니다"),
 
     // Attribution
     DUPLICATE_ATTRIBUTION(409, "이미 처리된 주문입니다"),
