@@ -20,8 +20,7 @@ public class Attribution {
     private final CommissionLedger commissionLedger;
 
     /**
-     * 귀속 생성 (CommissionLedger도 함께 생성)
-     *
+     * 귀속 생성 (CommissionLedger도 함께 생성
      * @param orderId 주문 ID
      * @param clickId 클릭 ID
      * @param campaignId 캠페인 ID
