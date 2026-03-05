@@ -1,6 +1,6 @@
 name: "🐞 Bug"
 description: "버그 발생 시 작성해 주세요"
-title: "[Fix] "
+title: "Fix: "
 labels: ["bug"]
 body:
   - type: textarea
