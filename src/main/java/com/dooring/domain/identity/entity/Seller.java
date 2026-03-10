@@ -5,6 +5,8 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.annotations.JdbcType;
+import org.hibernate.dialect.PostgreSQLEnumJdbcType;
 
 import java.time.LocalDateTime;
 
@@ -39,6 +41,7 @@ public class Seller {
 
     /** 회원 상태 (PENDING → 인증 전 / ACTIVE → 정상 / SUSPENDED → 정지) */
     @Enumerated(EnumType.STRING)
+    @JdbcType(PostgreSQLEnumJdbcType.class)
     @Column(name = "status", nullable = false, columnDefinition = "user_status_enum")
     private UserStatus status;
 

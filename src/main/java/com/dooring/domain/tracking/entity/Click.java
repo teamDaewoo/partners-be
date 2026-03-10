@@ -64,7 +64,7 @@ public class Click {
     /**
      * IP 주소 (중복 클릭 필터링용)
      */
-    @Column(name = "ip_address", columnDefinition = "inet")
+    @Column(name = "ip_address", columnDefinition = "text")
     private String ipAddress;
 
     /**
